@@ -1,0 +1,14 @@
+<li class="todo-item" [class.completed]="todo.completed">
+  <label class="checkbox-wrapper">
+    <input
+      type="checkbox"
+      [checked]="todo.completed"
+      (change)="toggled.emit(todo.id)"
+    />
+    <span class="checkmark"></span>
+  </label>
+  <span class="todo-title">{{ todo.title }}</span>
+  <button class="delete-btn" (click)="deleted.emit(todo.id)" aria-label="Delete">
+    &#x2715;
+  </button>
+</li>

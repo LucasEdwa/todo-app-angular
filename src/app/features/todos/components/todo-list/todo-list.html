@@ -1,0 +1,26 @@
+<div class="todo-container">
+  <h1 class="todo-heading">My Tasks</h1>
+
+  <app-todo-form (addTodo)="add($event)" />
+
+  <ul class="todo-list" *ngIf="todos.length > 0; else empty">
+    <app-todo-item
+      *ngFor="let todo of todos"
+      [todo]="todo"
+      (toggled)="toggle($event)"
+      (deleted)="remove($event)"
+    />
+  </ul>
+
+  <ng-template #empty>
+    <div class="empty-state">
+      <span class="empty-icon">✓</span>
+      <p>No tasks yet. Add one above!</p>
+    </div>
+  </ng-template>
+
+  <div class="todo-footer" *ngIf="todos.length > 0">
+    {{ todos.length }} task{{ todos.length !== 1 ? 's' : '' }} total &middot;
+    {{ completedCount }} completed
+  </div>
+</div>
