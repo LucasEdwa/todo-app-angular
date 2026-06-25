@@ -1,59 +1,59 @@
-# TodoApp
+# Todo App — Angular 21
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.15.
+A todo app built to explore **Angular 21** patterns: standalone components, the `inject()` function for dependency injection, feature-based folder structure, and server-side rendering via `@angular/ssr`.
 
-## Development server
+## Tech Stack
 
-To start a local development server, run:
+| Layer | Tools |
+|---|---|
+| Framework | Angular 21 |
+| Language | TypeScript |
+| Rendering | SSR (`@angular/ssr`) |
+| Styling | CSS |
+| Testing | Jasmine + Angular TestBed |
+
+## Architecture
+
+Feature-based folder structure with a clear separation between core logic and presentation:
+
+```
+src/app/
+├── core/
+│   ├── models/          ← Todo interface
+│   └── services/
+│       └── todo.service.ts   ← TodoService (add, toggle, remove)
+└── features/
+    └── todos/
+        └── components/
+            ├── todo-form/   ← Input + submit
+            ├── todo-item/   ← Single todo with toggle + delete
+            └── todo-list/   ← Composes form + items, reads from service
+```
+
+**Key patterns:**
+- **Standalone components** — no NgModule; each component declares its own imports
+- **`inject()` function** — constructor-free DI (`private todoService = inject(TodoService)`)
+- **SSR** — `server.ts` + `main.server.ts` for server-side rendering
+- **Service layer** — `TodoService` is the single source of truth for todo state
+
+## Getting Started
 
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open `http://localhost:4200`.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+To run with SSR:
 
 ```bash
 ng build
+node dist/todo-app/server/server.mjs
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Running Tests
 
 ```bash
 ng test
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
